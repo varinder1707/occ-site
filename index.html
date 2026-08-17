@@ -187,6 +187,32 @@
   .old-way .ico { color: var(--faint); }
   .new-way .ico { color: var(--good); }
 
+  /* ── Pricing ──────────────────────────────────────────── */
+  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch; }
+  .price-card {
+    background: var(--surface); border: 1.5px solid var(--line); border-radius: 18px;
+    padding: 32px 26px; position: relative; display: flex; flex-direction: column;
+  }
+  .price-card.featured {
+    border-color: var(--accent); box-shadow: var(--shadow-lg);
+    background: linear-gradient(160deg, var(--accent-soft), var(--surface) 55%);
+  }
+  .price-badge {
+    position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--accent), var(--c-pink)); color: #fff;
+    font-size: 11px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase;
+    padding: 5px 14px; border-radius: 999px; white-space: nowrap;
+  }
+  .price-name { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 19px; }
+  .price-desc { font-size: 13px; color: var(--muted); margin-top: 6px; min-height: 34px; }
+  .price-amt { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 38px; margin-top: 18px; color: var(--ink); }
+  .price-cur { font-size: 17px; vertical-align: super; margin-right: 2px; }
+  .price-per { font-size: 14px; font-weight: 600; color: var(--muted); }
+  .price-cta { width: 100%; justify-content: center; margin: 22px 0 4px; }
+  .price-features { list-style: none; margin: 18px 0 0; padding: 0; display: flex; flex-direction: column; gap: 11px; flex: 1; }
+  .price-features li { display: flex; gap: 8px; font-size: 13.5px; color: var(--ink); align-items: flex-start; }
+  .price-features li .ico { flex-shrink: 0; color: var(--good); font-weight: 800; margin-top: 1px; }
+
   /* ── Feature grid ─────────────────────────────────────── */
   .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
   .feature-card {
@@ -231,6 +257,7 @@
     .hero-grid { grid-template-columns: 1fr; gap: 40px; }
     .product-preview { transform: none; }
     .split { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
     .feature-grid { grid-template-columns: 1fr; }
     .trust-grid { grid-template-columns: repeat(2, 1fr); }
     .contact-panel { padding: 44px 24px; }
@@ -247,7 +274,7 @@
       <nav class="links">
         <a href="#features">What it does</a>
         <a href="#workflow">How it works</a>
-        <a href="#trust">Why it's different</a>
+        <a href="#pricing">Pricing</a>
       </nav>
       <a href="#contact" class="cta-btn">Get in touch</a>
     </div>
@@ -455,12 +482,63 @@
     </div>
   </section>
 
+  <section id="pricing">
+    <div class="wrap">
+      <div class="section-head" style="text-align:center;">
+        <div class="section-eyebrow" style="justify-content:center; display:flex;">Pricing</div>
+        <h2 class="section-title" style="max-width:none;">Simple pricing, no surprises</h2>
+        <p class="section-sub" style="margin-left:auto; margin-right:auto;">Pick what fits your team today — every plan can grow with you.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="price-card">
+          <div class="price-name">Starter</div>
+          <div class="price-desc">For small teams getting off spreadsheets</div>
+          <div class="price-amt"><span class="price-cur">RM</span>350<span class="price-per">/month</span></div>
+          <a href="mailto:varinder@resourcexpert.com?subject=OCC%20-%20Starter%20plan" class="cta-ghost price-cta">Get started</a>
+          <ul class="price-features">
+            <li><span class="ico">✓</span>Sales &amp; Management</li>
+            <li><span class="ico">✓</span>Up to 5 team members</li>
+            <li><span class="ico">✓</span>Live AR &amp; order tracking</li>
+            <li><span class="ico">✓</span>Email support</li>
+          </ul>
+        </div>
+        <div class="price-card featured">
+          <div class="price-badge">Most Popular</div>
+          <div class="price-name">Business</div>
+          <div class="price-desc">For teams running full daily operations</div>
+          <div class="price-amt"><span class="price-cur">RM</span>750<span class="price-per">/month</span></div>
+          <a href="mailto:varinder@resourcexpert.com?subject=OCC%20-%20Business%20plan" class="cta-btn price-cta">Get started</a>
+          <ul class="price-features">
+            <li><span class="ico">✓</span>Everything in Starter</li>
+            <li><span class="ico">✓</span>Production &amp; Procurement</li>
+            <li><span class="ico">✓</span>Full order-to-payment tracking</li>
+            <li><span class="ico">✓</span>Up to 20 team members</li>
+            <li><span class="ico">✓</span>Priority support</li>
+          </ul>
+        </div>
+        <div class="price-card">
+          <div class="price-name">Enterprise</div>
+          <div class="price-desc">For larger operations with custom needs</div>
+          <div class="price-amt">Custom</div>
+          <a href="mailto:varinder@resourcexpert.com?subject=OCC%20-%20Enterprise%20plan" class="cta-ghost price-cta">Talk to us</a>
+          <ul class="price-features">
+            <li><span class="ico">✓</span>Everything in Business</li>
+            <li><span class="ico">✓</span>AI Assistant included</li>
+            <li><span class="ico">✓</span>Unlimited team members</li>
+            <li><span class="ico">✓</span>Dedicated support</li>
+            <li><span class="ico">✓</span>Custom integrations</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="contact">
     <div class="wrap">
       <div class="contact-panel">
         <h2>Want to see it running?</h2>
         <p>Get in touch and we'll walk you through OCC — no pressure, just a look at what it can do.</p>
-        <a href="mailto:varinder@serirasa.com?subject=OCC%20-%20Get%20in%20touch" class="cta-btn">Email us →</a>
+        <a href="mailto:varinder@resourcexpert.com?subject=OCC%20-%20Get%20in%20touch" class="cta-btn">Email us →</a>
       </div>
     </div>
   </section>
