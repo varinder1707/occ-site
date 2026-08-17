@@ -121,28 +121,92 @@
   }
 
   /* ── Hero ─────────────────────────────────────────────── */
-  .hero { padding: 100px 0 80px; }
+  .hero {
+    padding: 88px 0 70px;
+    position: relative;
+    overflow: hidden;
+    background-image: radial-gradient(circle, var(--line-strong) 1px, transparent 1px);
+    background-size: 28px 28px;
+    background-position: -14px -14px;
+    -webkit-mask-image: linear-gradient(180deg, black 0%, black 55%, transparent 100%);
+    mask-image: linear-gradient(180deg, black 0%, black 55%, transparent 100%);
+  }
+  .hero::before {
+    content: ""; position: absolute; top: -220px; right: -160px;
+    width: 560px; height: 560px; border-radius: 50%;
+    background: radial-gradient(circle, var(--accent-soft) 0%, transparent 68%);
+    z-index: 0; pointer-events: none;
+  }
+  .hero .wrap { position: relative; z-index: 1; }
+  .hero-grid {
+    display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: center;
+  }
   .hero-eyebrow {
     display: inline-flex; align-items: center; gap: 8px;
     font-size: 12.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
     color: var(--accent-ink); background: var(--accent-soft);
     padding: 6px 14px; border-radius: 999px; margin-bottom: 24px;
   }
-  h1.hero-title { font-size: clamp(38px, 5.5vw, 62px); line-height: 1.05; letter-spacing: -0.02em; max-width: 16ch; }
-  .hero-sub { font-size: 19px; color: var(--muted); max-width: 54ch; margin-top: 22px; }
-  .hero-actions { display: flex; gap: 14px; margin-top: 36px; flex-wrap: wrap; }
+  h1.hero-title { font-size: clamp(34px, 4.6vw, 52px); line-height: 1.08; letter-spacing: -0.02em; }
+  .hero-sub { font-size: 17.5px; color: var(--muted); max-width: 50ch; margin-top: 20px; }
+  .hero-actions { display: flex; gap: 14px; margin-top: 32px; flex-wrap: wrap; }
 
   .hero-stats {
     display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
     background: var(--line); border: 1px solid var(--line); border-radius: 14px;
-    overflow: hidden; margin-top: 64px; box-shadow: var(--shadow-sm);
+    overflow: hidden; margin-top: 52px; box-shadow: var(--shadow-sm);
   }
-  .hstat { background: var(--surface); padding: 24px 20px; }
+  .hstat { background: var(--surface); padding: 22px 18px; }
   .hstat b {
     display: block; font-family: 'Fraunces', "Iowan Old Style", Georgia, serif;
-    font-size: 30px; color: var(--accent-ink); font-variant-numeric: tabular-nums;
+    font-size: 27px; color: var(--accent-ink); font-variant-numeric: tabular-nums;
   }
-  .hstat span { font-size: 12.5px; color: var(--muted); }
+  .hstat span { font-size: 12px; color: var(--muted); }
+
+  /* ── Product preview (hero visual) ───────────────────── */
+  .product-preview {
+    background: var(--surface); border: 1px solid var(--line-strong); border-radius: 18px;
+    box-shadow: var(--shadow-lg); overflow: hidden;
+    transform: rotate(-1deg);
+  }
+  .pp-chrome {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 18px; border-bottom: 1px solid var(--line); background: var(--surface-2);
+  }
+  .pp-dots { display: flex; gap: 6px; }
+  .pp-dots span { width: 8px; height: 8px; border-radius: 50%; background: var(--line-strong); }
+  .pp-tabs { display: flex; gap: 4px; }
+  .pp-tab {
+    font-size: 11px; font-weight: 700; padding: 5px 10px; border-radius: 999px; color: var(--faint);
+  }
+  .pp-tab.active { background: var(--accent); color: #fff; }
+  .pp-body { padding: 20px; }
+  .pp-kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+  .pp-kpi {
+    background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .pp-kpi.accent { background: var(--accent-soft); border-color: transparent; }
+  .pp-kpi.good { background: var(--good-soft); border-color: transparent; }
+  .pp-kpi-label {
+    display: block; font-size: 10.5px; color: var(--muted); font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .pp-kpi.accent .pp-kpi-label { color: var(--accent-ink); }
+  .pp-kpi.good .pp-kpi-label { color: var(--good); }
+  .pp-kpi-val {
+    display: block; font-size: 17px; font-weight: 800; color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .pp-rows { border-top: 1px dashed var(--line-strong); padding-top: 14px; display: flex; flex-direction: column; gap: 9px; }
+  .pp-row { display: flex; align-items: center; justify-content: space-between; font-size: 12.5px; }
+  .pp-row-doc { font-family: ui-monospace, "SF Mono", monospace; color: var(--ink); font-weight: 600; }
+  .pp-row-pill {
+    font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 999px;
+    background: var(--surface-2); color: var(--faint);
+  }
+  .pp-row-pill.good { background: var(--good-soft); color: var(--good); }
+  .pp-row-pill.warn { background: var(--accent-soft); color: var(--accent-ink); }
 
   /* ── Section scaffolding ──────────────────────────────── */
   section { padding: 90px 0; }
@@ -223,7 +287,9 @@
 
   @media (max-width: 860px) {
     nav.links { display: none; }
-    .hero { padding: 70px 0 56px; }
+    .hero { padding: 56px 0 48px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .product-preview { transform: none; }
     .hero-stats { grid-template-columns: repeat(2, 1fr); }
     .split { grid-template-columns: 1fr; }
     .feature-grid { grid-template-columns: 1fr; }
@@ -252,19 +318,59 @@
 
   <section class="hero">
     <div class="wrap">
-      <div class="hero-eyebrow">Operations Command Centre</div>
-      <h1 class="hero-title">Run the whole business from one screen.</h1>
-      <p class="hero-sub">OCC brings Sales, Management, Production, and Procurement into a single live system — so nothing gets tracked in someone's head, a spreadsheet, or a WhatsApp thread ever again.</p>
-      <div class="hero-actions">
-        <a href="#contact" class="cta-btn">Get in touch →</a>
-        <a href="#workflow" class="cta-ghost">See how it works</a>
-      </div>
+      <div class="hero-grid">
+        <div>
+          <div class="hero-eyebrow">Operations Command Centre</div>
+          <h1 class="hero-title">Run the whole business from one screen.</h1>
+          <p class="hero-sub">OCC brings Sales, Management, Production, and Procurement into a single live system — so nothing gets tracked in someone's head, a spreadsheet, or a WhatsApp thread ever again.</p>
+          <div class="hero-actions">
+            <a href="#contact" class="cta-btn">Get in touch →</a>
+            <a href="#workflow" class="cta-ghost">See how it works</a>
+          </div>
 
-      <div class="hero-stats">
-        <div class="hstat"><b>5</b><span>Business areas, one system</span></div>
-        <div class="hstat"><b>4</b><span>Procurement steps, fully tracked</span></div>
-        <div class="hstat"><b>&gt;5%</b><span>Price variance, flagged automatically</span></div>
-        <div class="hstat"><b>1</b><span>Place to check what's overdue</span></div>
+          <div class="hero-stats">
+            <div class="hstat"><b>5</b><span>Business areas, one system</span></div>
+            <div class="hstat"><b>4</b><span>Procurement steps, fully tracked</span></div>
+            <div class="hstat"><b>&gt;5%</b><span>Price variance, flagged automatically</span></div>
+            <div class="hstat"><b>1</b><span>Place to check what's overdue</span></div>
+          </div>
+        </div>
+
+        <div class="product-preview" aria-hidden="true">
+          <div class="pp-chrome">
+            <div class="pp-dots"><span></span><span></span><span></span></div>
+            <div class="pp-tabs">
+              <span class="pp-tab active">Procurement</span>
+              <span class="pp-tab">Sales</span>
+              <span class="pp-tab">Production</span>
+            </div>
+          </div>
+          <div class="pp-body">
+            <div class="pp-kpis">
+              <div class="pp-kpi">
+                <span class="pp-kpi-label">AR Outstanding</span>
+                <span class="pp-kpi-val">RM 42,180</span>
+              </div>
+              <div class="pp-kpi accent">
+                <span class="pp-kpi-label">Price Variance Flagged</span>
+                <span class="pp-kpi-val">2 invoices</span>
+              </div>
+              <div class="pp-kpi">
+                <span class="pp-kpi-label">GRNs Pending</span>
+                <span class="pp-kpi-val">3</span>
+              </div>
+              <div class="pp-kpi good">
+                <span class="pp-kpi-label">On-Track Orders</span>
+                <span class="pp-kpi-val">14 / 16</span>
+              </div>
+            </div>
+            <div class="pp-rows">
+              <div class="pp-row"><span class="pp-row-doc">PO-2026-0847</span><span class="pp-row-pill good">Invoiced</span></div>
+              <div class="pp-row"><span class="pp-row-doc">PO-2026-0851</span><span class="pp-row-pill warn">Pending Invoice</span></div>
+              <div class="pp-row"><span class="pp-row-doc">PO-2026-0853</span><span class="pp-row-pill">Received</span></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
