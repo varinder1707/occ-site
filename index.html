@@ -4,284 +4,224 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>OCC — Operations Command Centre</title>
-<meta name="description" content="One live system for Sales, Management, Production, and Procurement — built to replace spreadsheets and disconnected software with a single operational view." />
+<meta name="description" content="See your whole business in one place — sales, orders, production, and suppliers. Built so nothing gets tracked in someone's head anymore." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #FAF6EF;
+    --bg: #FFFFFF;
     --surface: #FFFFFF;
-    --surface-2: #F3ECE0;
-    --ink: #2A2119;
-    --muted: #6E6152;
-    --faint: #A2937C;
-    --line: #E8DFD0;
-    --line-strong: #D9CCB6;
-    --accent: #C1602A;
-    --accent-ink: #7A3D1B;
-    --accent-soft: #F3DCC4;
-    --good: #3B6E52;
-    --good-soft: #DEEBE3;
-    --shadow-sm: 0 1px 2px rgba(42,33,25,0.05);
-    --shadow-lg: 0 20px 60px rgba(42,33,25,0.10);
+    --surface-2: #F5F6FA;
+    --ink: #14152B;
+    --muted: #5B5D78;
+    --faint: #9294AD;
+    --line: #E7E8F2;
+    --line-strong: #D4D6E8;
+    --accent: #5B4FE8;
+    --accent-ink: #4438D6;
+    --accent-soft: #ECE9FF;
+    --good: #0EA672;
+    --good-soft: #DDF6EB;
+    --shadow-sm: 0 1px 2px rgba(20,21,43,0.05);
+    --shadow-lg: 0 24px 60px rgba(20,21,43,0.14);
+    /* Feature colors — one per business area, used for badges/icons only */
+    --c-blue: #2E7DF7;      --c-blue-bg: #E6F0FE;
+    --c-green: #12B76A;     --c-green-bg: #E3FBEF;
+    --c-orange: #F97316;    --c-orange-bg: #FFEEE0;
+    --c-purple: #8B5CF6;    --c-purple-bg: #F1EBFE;
+    --c-pink: #EC4899;      --c-pink-bg: #FDE9F3;
+    --c-teal: #06B6D4;      --c-teal-bg: #E1F7FB;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #17130F;
-      --surface: #211A13;
-      --surface-2: #2A2117;
-      --ink: #F3EADC;
-      --muted: #B4A388;
-      --faint: #7E7161;
-      --line: #362B1F;
-      --line-strong: #473A29;
-      --accent: #E08A50;
-      --accent-ink: #F3C79B;
-      --accent-soft: #3D2A18;
-      --good: #6FB090;
-      --good-soft: #24352C;
-      --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
-      --shadow-lg: 0 20px 60px rgba(0,0,0,0.45);
+      --bg: #0F0F1E; --surface: #16172C; --surface-2: #1D1E38; --ink: #F1F1FA;
+      --muted: #A8A9C6; --faint: #6E6F8F; --line: #2A2B4A; --line-strong: #383A63;
+      --accent: #857AFF; --accent-ink: #B3ABFF; --accent-soft: #26235A;
+      --good: #34D399; --good-soft: #123829;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.3); --shadow-lg: 0 24px 60px rgba(0,0,0,0.5);
+      --c-blue: #5B9BFF; --c-blue-bg: #182A4D; --c-green: #34D399; --c-green-bg: #123829;
+      --c-orange: #FFA05C; --c-orange-bg: #3A2412; --c-purple: #B49CFF; --c-purple-bg: #2A2154;
+      --c-pink: #FF8FC4; --c-pink-bg: #3A1D30; --c-teal: #4DD4EC; --c-teal-bg: #103A42;
     }
   }
   :root[data-theme="dark"] {
-    --bg: #17130F; --surface: #211A13; --surface-2: #2A2117; --ink: #F3EADC;
-    --muted: #B4A388; --faint: #7E7161; --line: #362B1F; --line-strong: #473A29;
-    --accent: #E08A50; --accent-ink: #F3C79B; --accent-soft: #3D2A18;
-    --good: #6FB090; --good-soft: #24352C;
-    --shadow-sm: 0 1px 2px rgba(0,0,0,0.3); --shadow-lg: 0 20px 60px rgba(0,0,0,0.45);
+    --bg: #0F0F1E; --surface: #16172C; --surface-2: #1D1E38; --ink: #F1F1FA;
+    --muted: #A8A9C6; --faint: #6E6F8F; --line: #2A2B4A; --line-strong: #383A63;
+    --accent: #857AFF; --accent-ink: #B3ABFF; --accent-soft: #26235A;
+    --good: #34D399; --good-soft: #123829;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.3); --shadow-lg: 0 24px 60px rgba(0,0,0,0.5);
+    --c-blue: #5B9BFF; --c-blue-bg: #182A4D; --c-green: #34D399; --c-green-bg: #123829;
+    --c-orange: #FFA05C; --c-orange-bg: #3A2412; --c-purple: #B49CFF; --c-purple-bg: #2A2154;
+    --c-pink: #FF8FC4; --c-pink-bg: #3A1D30; --c-teal: #4DD4EC; --c-teal-bg: #103A42;
   }
 
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--ink);
+    margin: 0; background: var(--bg); color: var(--ink);
     font-family: 'Manrope', -apple-system, "Segoe UI", ui-sans-serif, system-ui, sans-serif;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
+    line-height: 1.6; -webkit-font-smoothing: antialiased;
   }
   h1, h2, h3 {
-    font-family: 'Fraunces', "Iowan Old Style", Georgia, serif;
-    font-weight: 600;
-    text-wrap: balance;
-    margin: 0;
-    color: var(--ink);
+    font-family: 'Sora', -apple-system, sans-serif;
+    font-weight: 700; text-wrap: balance; margin: 0; color: var(--ink);
   }
   a { color: inherit; }
   img, svg { max-width: 100%; display: block; }
   .wrap { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
-  .prose { max-width: 62ch; }
 
   /* ── Nav ──────────────────────────────────────────────── */
   header.nav {
     position: sticky; top: 0; z-index: 20;
-    background: color-mix(in srgb, var(--bg) 88%, transparent);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--line);
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(10px); border-bottom: 1px solid var(--line);
   }
-  .nav-inner {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 16px 0;
-  }
-  .brand {
-    display: flex; align-items: center; gap: 9px;
-    font-family: 'Fraunces', "Iowan Old Style", Georgia, serif;
-    font-weight: 700; font-size: 19px; letter-spacing: -0.01em;
-    text-decoration: none;
-  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; }
+  .brand { display: flex; align-items: center; gap: 9px; font-family: 'Sora', sans-serif; font-weight: 800; font-size: 19px; letter-spacing: -0.01em; text-decoration: none; }
   .brand .mark {
-    width: 30px; height: 30px; border-radius: 8px;
-    background: var(--accent); color: #fff;
+    width: 30px; height: 30px; border-radius: 9px; color: #fff;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--c-pink) 100%);
     display: flex; align-items: center; justify-content: center;
-    font-family: 'Manrope', -apple-system, sans-serif; font-weight: 800; font-size: 14px;
+    font-family: 'Sora', sans-serif; font-weight: 800; font-size: 14px;
   }
   nav.links { display: flex; gap: 28px; }
-  nav.links a {
-    font-size: 14px; font-weight: 600; color: var(--muted); text-decoration: none;
-  }
+  nav.links a { font-size: 14px; font-weight: 700; color: var(--muted); text-decoration: none; }
   nav.links a:hover { color: var(--ink); }
   .cta-btn {
     display: inline-flex; align-items: center; gap: 8px;
     background: var(--accent); color: #fff;
-    padding: 10px 20px; border-radius: 8px;
+    padding: 11px 22px; border-radius: 10px;
     font-size: 14px; font-weight: 700; text-decoration: none;
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 8px 20px color-mix(in srgb, var(--accent) 35%, transparent);
     border: none; cursor: pointer;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
-  .cta-btn:hover { transform: translateY(-1px); box-shadow: var(--shadow-lg); }
+  .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 26px color-mix(in srgb, var(--accent) 45%, transparent); }
   .cta-ghost {
     display: inline-flex; align-items: center; gap: 8px;
-    padding: 10px 18px; border-radius: 8px;
+    padding: 11px 20px; border-radius: 10px;
     font-size: 14px; font-weight: 700; text-decoration: none;
     border: 1.5px solid var(--line-strong); color: var(--ink);
   }
 
   /* ── Hero ─────────────────────────────────────────────── */
-  .hero {
-    padding: 88px 0 70px;
-    position: relative;
-    overflow: hidden;
-    background-image: radial-gradient(circle, var(--line-strong) 1px, transparent 1px);
-    background-size: 28px 28px;
-    background-position: -14px -14px;
-    -webkit-mask-image: linear-gradient(180deg, black 0%, black 55%, transparent 100%);
-    mask-image: linear-gradient(180deg, black 0%, black 55%, transparent 100%);
-  }
+  .hero { padding: 84px 0 64px; position: relative; overflow: hidden; }
   .hero::before {
-    content: ""; position: absolute; top: -220px; right: -160px;
-    width: 560px; height: 560px; border-radius: 50%;
-    background: radial-gradient(circle, var(--accent-soft) 0%, transparent 68%);
-    z-index: 0; pointer-events: none;
+    content: ""; position: absolute; top: -280px; left: 50%; transform: translateX(-50%);
+    width: 900px; height: 560px; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(circle at 20% 70%, color-mix(in srgb, var(--c-blue) 30%, transparent) 0%, transparent 45%),
+      radial-gradient(circle at 75% 30%, color-mix(in srgb, var(--c-pink) 26%, transparent) 0%, transparent 45%),
+      radial-gradient(circle at 50% 90%, color-mix(in srgb, var(--accent) 28%, transparent) 0%, transparent 45%);
+    filter: blur(40px);
   }
   .hero .wrap { position: relative; z-index: 1; }
-  .hero-grid {
-    display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: center;
-  }
+  .hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: center; }
   .hero-eyebrow {
     display: inline-flex; align-items: center; gap: 8px;
-    font-size: 12.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    font-size: 12.5px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase;
     color: var(--accent-ink); background: var(--accent-soft);
-    padding: 6px 14px; border-radius: 999px; margin-bottom: 24px;
+    padding: 7px 14px; border-radius: 999px; margin-bottom: 22px;
   }
-  h1.hero-title { font-size: clamp(34px, 4.6vw, 52px); line-height: 1.08; letter-spacing: -0.02em; }
+  h1.hero-title { font-size: clamp(34px, 4.6vw, 54px); line-height: 1.06; letter-spacing: -0.02em; }
+  .hero-title .hl { background: linear-gradient(100deg, var(--accent), var(--c-pink)); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .hero-sub { font-size: 17.5px; color: var(--muted); max-width: 50ch; margin-top: 20px; }
   .hero-actions { display: flex; gap: 14px; margin-top: 32px; flex-wrap: wrap; }
 
-  .hero-stats {
-    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px;
-    background: var(--line); border: 1px solid var(--line); border-radius: 14px;
-    overflow: hidden; margin-top: 52px; box-shadow: var(--shadow-sm);
+  .hero-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 48px; }
+  .hstat {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+    padding: 16px 18px; display: flex; align-items: baseline; gap: 10px; box-shadow: var(--shadow-sm);
   }
-  .hstat { background: var(--surface); padding: 18px 20px; display: flex; align-items: baseline; gap: 10px; }
-  .hstat b {
-    flex-shrink: 0; font-family: 'Fraunces', "Iowan Old Style", Georgia, serif;
-    font-size: 24px; color: var(--accent-ink); font-variant-numeric: tabular-nums;
-  }
-  .hstat span { font-size: 12px; color: var(--muted); line-height: 1.3; }
+  .hstat b { flex-shrink: 0; font-family: 'Sora', sans-serif; font-size: 22px; color: var(--accent-ink); font-variant-numeric: tabular-nums; }
+  .hstat span { font-size: 12.5px; color: var(--muted); line-height: 1.3; }
 
-  /* ── Product preview (hero visual) ───────────────────── */
+  /* ── Product preview ──────────────────────────────────── */
   .product-preview {
-    background: var(--surface); border: 1px solid var(--line-strong); border-radius: 18px;
-    box-shadow: var(--shadow-lg); overflow: hidden;
-    transform: rotate(-1deg);
+    background: var(--surface); border: 1px solid var(--line); border-radius: 20px;
+    box-shadow: var(--shadow-lg); overflow: hidden; transform: rotate(-1.2deg);
   }
-  .pp-chrome {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 18px; border-bottom: 1px solid var(--line); background: var(--surface-2);
-  }
+  .pp-chrome { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid var(--line); background: var(--surface-2); }
   .pp-dots { display: flex; gap: 6px; }
-  .pp-dots span { width: 8px; height: 8px; border-radius: 50%; background: var(--line-strong); }
+  .pp-dots span:nth-child(1) { background: var(--c-pink); } .pp-dots span:nth-child(2) { background: var(--c-orange); } .pp-dots span:nth-child(3) { background: var(--good); }
+  .pp-dots span { width: 9px; height: 9px; border-radius: 50%; }
   .pp-tabs { display: flex; gap: 4px; }
-  .pp-tab {
-    font-size: 11px; font-weight: 700; padding: 5px 10px; border-radius: 999px; color: var(--faint);
-  }
+  .pp-tab { font-size: 11px; font-weight: 800; padding: 5px 10px; border-radius: 999px; color: var(--faint); }
   .pp-tab.active { background: var(--accent); color: #fff; }
   .pp-body { padding: 20px; }
   .pp-kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-  .pp-kpi {
-    background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px;
-    padding: 12px 14px;
-  }
-  .pp-kpi.accent { background: var(--accent-soft); border-color: transparent; }
-  .pp-kpi.good { background: var(--good-soft); border-color: transparent; }
-  .pp-kpi-label {
-    display: block; font-size: 10.5px; color: var(--muted); font-weight: 600;
-    margin-bottom: 6px;
-  }
-  .pp-kpi.accent .pp-kpi-label { color: var(--accent-ink); }
-  .pp-kpi.good .pp-kpi-label { color: var(--good); }
-  .pp-kpi-val {
-    display: block; font-size: 17px; font-weight: 800; color: var(--ink);
-    font-variant-numeric: tabular-nums;
-  }
+  .pp-kpi { background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+  .pp-kpi.blue { background: var(--c-blue-bg); border-color: transparent; }
+  .pp-kpi.orange { background: var(--c-orange-bg); border-color: transparent; }
+  .pp-kpi.green { background: var(--good-soft); border-color: transparent; }
+  .pp-kpi-label { display: block; font-size: 10.5px; color: var(--muted); font-weight: 700; margin-bottom: 6px; }
+  .pp-kpi.blue .pp-kpi-label { color: var(--c-blue); }
+  .pp-kpi.orange .pp-kpi-label { color: var(--c-orange); }
+  .pp-kpi.green .pp-kpi-label { color: var(--good); }
+  .pp-kpi-val { display: block; font-size: 18px; font-weight: 800; color: var(--ink); font-variant-numeric: tabular-nums; }
   .pp-rows { border-top: 1px dashed var(--line-strong); padding-top: 14px; display: flex; flex-direction: column; gap: 9px; }
   .pp-row { display: flex; align-items: center; justify-content: space-between; font-size: 12.5px; }
-  .pp-row-doc { font-family: ui-monospace, "SF Mono", monospace; color: var(--ink); font-weight: 600; }
-  .pp-row-pill {
-    font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 999px;
-    background: var(--surface-2); color: var(--faint);
-  }
+  .pp-row-doc { font-family: ui-monospace, "SF Mono", monospace; color: var(--ink); font-weight: 700; }
+  .pp-row-pill { font-size: 10px; font-weight: 800; padding: 3px 9px; border-radius: 999px; background: var(--surface-2); color: var(--faint); }
   .pp-row-pill.good { background: var(--good-soft); color: var(--good); }
-  .pp-row-pill.warn { background: var(--accent-soft); color: var(--accent-ink); }
+  .pp-row-pill.warn { background: var(--c-orange-bg); color: var(--c-orange); }
 
   /* ── Section scaffolding ──────────────────────────────── */
-  section { padding: 90px 0; }
-  section.alt { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-  .section-eyebrow {
-    font-size: 12.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 14px;
-  }
-  h2.section-title { font-size: clamp(28px, 3.4vw, 38px); max-width: 20ch; }
+  section { padding: 84px 0; }
+  section.alt { background: var(--surface-2); }
+  .section-eyebrow { font-size: 12.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+  h2.section-title { font-size: clamp(28px, 3.4vw, 36px); max-width: 20ch; }
   .section-sub { font-size: 16.5px; color: var(--muted); max-width: 58ch; margin-top: 14px; }
-  .section-head { margin-bottom: 52px; }
+  .section-head { margin-bottom: 48px; }
 
   /* ── Problem/Solution ─────────────────────────────────── */
-  .split {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start;
-  }
-  .split .col h3 { font-size: 18px; margin-bottom: 12px; }
-  .split .col p { color: var(--muted); font-size: 15px; }
-  .old-way, .new-way {
-    border-radius: 12px; padding: 26px 24px; border: 1px solid var(--line);
-  }
-  .old-way { background: var(--surface); opacity: 0.75; }
-  .new-way { background: var(--surface); border-color: var(--accent); box-shadow: var(--shadow-sm); }
-  .way-list { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+  .split .col h3 { font-size: 18px; margin-bottom: 14px; }
+  .old-way, .new-way { border-radius: 16px; padding: 28px 26px; }
+  .old-way { background: var(--surface); border: 1.5px dashed var(--line-strong); }
+  .new-way { background: linear-gradient(160deg, var(--accent-soft), var(--surface) 60%); border: 1.5px solid var(--accent); box-shadow: var(--shadow-sm); }
+  .way-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
   .way-list li { display: flex; gap: 10px; font-size: 14.5px; color: var(--ink); align-items: flex-start; }
-  .way-list li .ico { flex-shrink: 0; margin-top: 2px; }
+  .way-list li .ico { flex-shrink: 0; margin-top: 2px; font-weight: 800; }
+  .old-way .ico { color: var(--faint); }
+  .new-way .ico { color: var(--good); }
 
   /* ── Feature grid ─────────────────────────────────────── */
-  .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
   .feature-card {
-    background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
-    padding: 26px 24px;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+    padding: 24px 22px; transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
-  .feature-card:hover { border-color: var(--line-strong); box-shadow: var(--shadow-sm); }
-  .feature-num {
-    font-family: 'Fraunces', "Iowan Old Style", Georgia, serif;
-    font-size: 13px; color: var(--faint); margin-bottom: 14px;
-  }
-  .feature-card h3 { font-size: 16.5px; font-family: 'Manrope', -apple-system, sans-serif; font-weight: 700; margin-bottom: 8px; }
+  .feature-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+  .feature-icon { width: 42px; height: 42px; border-radius: 11px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+  .feature-card h3 { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
   .feature-card p { font-size: 14px; color: var(--muted); margin: 0; }
 
   /* ── Chain diagram ────────────────────────────────────── */
   .chain { display: flex; align-items: center; gap: 0; flex-wrap: wrap; justify-content: center; margin: 8px 0 0; }
-  .chain-node {
-    background: var(--surface); border: 1.5px solid var(--line-strong); border-radius: 12px;
-    padding: 18px 22px; text-align: center; min-width: 140px;
-  }
-  .chain-node b { display: block; font-size: 14.5px; font-family: 'Manrope', -apple-system, sans-serif; }
+  .chain-node { background: var(--surface); border: 1.5px solid var(--line-strong); border-radius: 14px; padding: 18px 22px; text-align: center; min-width: 150px; box-shadow: var(--shadow-sm); }
+  .chain-node b { display: block; font-size: 14.5px; font-weight: 800; }
   .chain-node span { font-size: 12px; color: var(--muted); }
-  .chain-arrow { color: var(--accent); font-size: 20px; padding: 0 14px; }
+  .chain-arrow { color: var(--accent); font-size: 22px; font-weight: 800; padding: 0 14px; }
 
   /* ── Trust strip ──────────────────────────────────────── */
-  .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
   .trust-item { text-align: center; padding: 20px; }
-  .trust-item .icon-wrap {
-    width: 48px; height: 48px; border-radius: 12px; background: var(--good-soft); color: var(--good);
-    display: flex; align-items: center; justify-content: center; margin: 0 auto 14px;
-  }
-  .trust-item h3 { font-size: 15px; font-family: 'Manrope', -apple-system, sans-serif; font-weight: 700; margin-bottom: 6px; }
+  .trust-item .icon-wrap { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
+  .trust-item h3 { font-size: 15px; font-weight: 800; margin-bottom: 6px; }
   .trust-item p { font-size: 13px; color: var(--muted); margin: 0; }
 
   /* ── CTA / Contact ────────────────────────────────────── */
   .contact-panel {
-    background: var(--ink); color: var(--bg);
-    border-radius: 20px; padding: 64px 56px; text-align: center;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--c-pink) 100%);
+    color: #fff; border-radius: 24px; padding: 64px 56px; text-align: center;
   }
-  .contact-panel h2 { color: var(--bg); font-size: clamp(26px, 3.2vw, 36px); }
-  .contact-panel p { color: color-mix(in srgb, var(--bg) 70%, transparent); font-size: 16px; max-width: 48ch; margin: 16px auto 32px; }
-  .contact-panel .cta-btn { background: var(--accent); }
+  .contact-panel h2 { color: #fff; font-size: clamp(26px, 3.2vw, 36px); }
+  .contact-panel p { color: rgba(255,255,255,0.85); font-size: 16px; max-width: 48ch; margin: 16px auto 32px; }
+  .contact-panel .cta-btn { background: #fff; color: var(--accent-ink); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
 
-  footer {
-    padding: 40px 0 60px; border-top: 1px solid var(--line);
-    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
-  }
+  footer { padding: 40px 0 60px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
   footer .brand { font-size: 15px; }
   footer .fine { font-size: 12.5px; color: var(--faint); }
 
@@ -290,7 +230,6 @@
     .hero { padding: 56px 0 48px; }
     .hero-grid { grid-template-columns: 1fr; gap: 40px; }
     .product-preview { transform: none; }
-    .hero-stats { grid-template-columns: repeat(2, 1fr); }
     .split { grid-template-columns: 1fr; }
     .feature-grid { grid-template-columns: 1fr; }
     .trust-grid { grid-template-columns: repeat(2, 1fr); }
@@ -306,9 +245,9 @@
     <div class="wrap nav-inner">
       <a href="#top" class="brand"><span class="mark">O</span>OCC</a>
       <nav class="links">
-        <a href="#features">Features</a>
+        <a href="#features">What it does</a>
         <a href="#workflow">How it works</a>
-        <a href="#trust">Why OCC</a>
+        <a href="#trust">Why it's different</a>
       </nav>
       <a href="#contact" class="cta-btn">Get in touch</a>
     </div>
@@ -320,19 +259,19 @@
     <div class="wrap">
       <div class="hero-grid">
         <div>
-          <div class="hero-eyebrow">Operations Command Centre</div>
-          <h1 class="hero-title">Run the whole business from one screen.</h1>
-          <p class="hero-sub">OCC brings Sales, Management, Production, and Procurement into a single live system — so nothing gets tracked in someone's head, a spreadsheet, or a WhatsApp thread ever again.</p>
+          <div class="hero-eyebrow">✦ Operations Command Centre</div>
+          <h1 class="hero-title">Your whole business, <span class="hl">in one place.</span></h1>
+          <p class="hero-sub">Stop hunting through spreadsheets and WhatsApp for answers. OCC shows you sales, orders, production, and suppliers — all live, all in one screen.</p>
           <div class="hero-actions">
             <a href="#contact" class="cta-btn">Get in touch →</a>
             <a href="#workflow" class="cta-ghost">See how it works</a>
           </div>
 
           <div class="hero-stats">
-            <div class="hstat"><b>5</b><span>Business areas, one system</span></div>
-            <div class="hstat"><b>4</b><span>Procurement steps, fully tracked</span></div>
-            <div class="hstat"><b>&gt;5%</b><span>Price variance, flagged automatically</span></div>
-            <div class="hstat"><b>1</b><span>Place to check what's overdue</span></div>
+            <div class="hstat"><b>5</b><span>Parts of the business, one screen</span></div>
+            <div class="hstat"><b>4</b><span>Steps from order to payment, tracked</span></div>
+            <div class="hstat"><b>&gt;5%</b><span>Price jump? You'll be warned</span></div>
+            <div class="hstat"><b>0</b><span>Spreadsheets needed</span></div>
           </div>
         </div>
 
@@ -347,27 +286,27 @@
           </div>
           <div class="pp-body">
             <div class="pp-kpis">
-              <div class="pp-kpi">
-                <span class="pp-kpi-label">AR Outstanding</span>
+              <div class="pp-kpi blue">
+                <span class="pp-kpi-label">Money Owed to Us</span>
                 <span class="pp-kpi-val">RM 42,180</span>
               </div>
-              <div class="pp-kpi accent">
-                <span class="pp-kpi-label">Price Variance Flagged</span>
+              <div class="pp-kpi orange">
+                <span class="pp-kpi-label">Price Jumped</span>
                 <span class="pp-kpi-val">2 invoices</span>
               </div>
               <div class="pp-kpi">
-                <span class="pp-kpi-label">GRNs Pending</span>
+                <span class="pp-kpi-label">Waiting on Approval</span>
                 <span class="pp-kpi-val">3</span>
               </div>
-              <div class="pp-kpi good">
-                <span class="pp-kpi-label">On-Track Orders</span>
+              <div class="pp-kpi green">
+                <span class="pp-kpi-label">On Schedule</span>
                 <span class="pp-kpi-val">14 / 16</span>
               </div>
             </div>
             <div class="pp-rows">
-              <div class="pp-row"><span class="pp-row-doc">PO-2026-0847</span><span class="pp-row-pill good">Invoiced</span></div>
-              <div class="pp-row"><span class="pp-row-doc">PO-2026-0851</span><span class="pp-row-pill warn">Pending Invoice</span></div>
-              <div class="pp-row"><span class="pp-row-doc">PO-2026-0853</span><span class="pp-row-pill">Received</span></div>
+              <div class="pp-row"><span class="pp-row-doc">PO-2026-0847</span><span class="pp-row-pill good">Paid</span></div>
+              <div class="pp-row"><span class="pp-row-doc">PO-2026-0851</span><span class="pp-row-pill warn">Needs Invoice</span></div>
+              <div class="pp-row"><span class="pp-row-doc">PO-2026-0853</span><span class="pp-row-pill">Goods In</span></div>
             </div>
           </div>
         </div>
@@ -378,26 +317,26 @@
   <section class="alt">
     <div class="wrap">
       <div class="section-head">
-        <div class="section-eyebrow">The problem</div>
-        <h2 class="section-title">Running operations shouldn't mean switching between five different places</h2>
+        <div class="section-eyebrow">The problem today</div>
+        <h2 class="section-title">Right now, answers live in someone's head</h2>
       </div>
       <div class="split">
         <div class="col old-way">
-          <h3>Without OCC</h3>
+          <h3>😩 Without OCC</h3>
           <ul class="way-list">
-            <li><span class="ico">✕</span>Order status lives in someone's memory, or a WhatsApp scroll-back</li>
-            <li><span class="ico">✕</span>Purchase orders, GRNs, and invoices tracked as separate, disconnected documents</li>
-            <li><span class="ico">✕</span>Price increases from suppliers get caught after the invoice is already paid</li>
-            <li><span class="ico">✕</span>Answering "what's overdue" means opening three different tools</li>
+            <li><span class="ico">✕</span>You have to ask around to find out if an order shipped</li>
+            <li><span class="ico">✕</span>Orders, deliveries, and bills are three separate pieces of paper</li>
+            <li><span class="ico">✕</span>A supplier quietly raises prices and nobody notices until it's paid</li>
+            <li><span class="ico">✕</span>"What's overdue?" means opening three different apps</li>
           </ul>
         </div>
         <div class="col new-way">
-          <h3>With OCC</h3>
+          <h3>🎯 With OCC</h3>
           <ul class="way-list">
-            <li><span class="ico">✓</span>Every order's status — sales or purchase — visible at a glance</li>
-            <li><span class="ico">✓</span>PO → GRN → Invoice → Payment linked automatically, end to end</li>
-            <li><span class="ico">✓</span>Any invoice priced &gt;5% over the original PO gets flagged before approval</li>
-            <li><span class="ico">✓</span>One dashboard answers what's overdue, at-risk, or waiting on you</li>
+            <li><span class="ico">✓</span>Every order's status, updated live — just look</li>
+            <li><span class="ico">✓</span>Order → delivery → bill, all linked automatically</li>
+            <li><span class="ico">✓</span>Price jumps get flagged before you approve, not after</li>
+            <li><span class="ico">✓</span>"What's overdue" is one screen, always up to date</li>
           </ul>
         </div>
       </div>
@@ -407,40 +346,52 @@
   <section id="features">
     <div class="wrap">
       <div class="section-head">
-        <div class="section-eyebrow">What's inside</div>
-        <h2 class="section-title">Six areas of the business, covered end to end</h2>
-        <p class="section-sub">Not a generic dashboard — every screen is built around a real operational question someone on the team needs answered.</p>
+        <div class="section-eyebrow">What it does</div>
+        <h2 class="section-title">Everything your team needs, explained simply</h2>
+        <p class="section-sub">No jargon — just the six things OCC actually helps with, day to day.</p>
       </div>
       <div class="feature-grid">
         <div class="feature-card">
-          <div class="feature-num">Sales</div>
-          <h3>Pipeline &amp; performance</h3>
-          <p>Revenue trends, deal stages, and agent performance — updated live, not reconstructed at month-end.</p>
+          <div class="feature-icon" style="background:var(--c-blue-bg);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--c-blue)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+          </div>
+          <h3>Who's buying, and how much</h3>
+          <p>See your sales updating live — who's buying, how much, and which of your team is closing the most deals.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-num">Management</div>
-          <h3>AR &amp; order lifecycle</h3>
-          <p>Real accounts-receivable aging and a live view of every sales order from creation to delivery.</p>
+          <div class="feature-icon" style="background:var(--c-purple-bg);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--c-purple)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+          </div>
+          <h3>Who owes you money</h3>
+          <p>Know exactly who hasn't paid yet, and how overdue they are — no more chasing invoices by memory.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-num">Production</div>
-          <h3>Capacity &amp; gap analysis</h3>
-          <p>Explodes bills of materials against current stock to answer "can we make it, and what's short."</p>
+          <div class="feature-icon" style="background:var(--c-green-bg);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--c-green)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3>Can we make it in time?</h3>
+          <p>Checks what you have in stock against what you need to produce — so you know what's short before it's too late.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-num">Procurement</div>
-          <h3>PO to payment, tracked</h3>
-          <p>Create supplier POs, receive goods, invoice, and pay — with the full document chain visible for any order.</p>
+          <div class="feature-icon" style="background:var(--c-orange-bg);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--c-orange)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a4 4 0 018 0v2"/></svg>
+          </div>
+          <h3>Buying from suppliers, tracked</h3>
+          <p>Order, receive, get billed, and pay — every step tracked in one place, so nothing gets paid twice or missed.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-num">Documents</div>
-          <h3>AI-assisted PO intake</h3>
-          <p>Incoming customer purchase orders are read automatically and turned into a draft order, ready to confirm.</p>
+          <div class="feature-icon" style="background:var(--c-pink-bg);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--c-pink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8"/></svg>
+          </div>
+          <h3>Reads customer orders for you</h3>
+          <p>A customer sends a PO — OCC reads it and sets up the order automatically, ready for you to confirm.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-num">Assistant</div>
-          <h3>Ask, don't dig</h3>
-          <p>A built-in assistant answers real business questions — top customers, at-risk orders, low stock — instantly.</p>
+          <div class="feature-icon" style="background:var(--c-teal-bg);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--c-teal)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/></svg>
+          </div>
+          <h3>Just ask it a question</h3>
+          <p>Type "who owes us money" or "what's low in stock" and get a straight answer — instantly, no report needed.</p>
         </div>
       </div>
     </div>
@@ -450,17 +401,17 @@
     <div class="wrap">
       <div class="section-head">
         <div class="section-eyebrow">How it works</div>
-        <h2 class="section-title">Every purchase, traceable from order to payment</h2>
-        <p class="section-sub">The exact chain that's usually the hardest to keep straight — OCC links it automatically.</p>
+        <h2 class="section-title">Every purchase, followed from start to finish</h2>
+        <p class="section-sub">The part that's usually hardest to keep straight — OCC connects it automatically.</p>
       </div>
       <div class="chain">
-        <div class="chain-node"><b>Purchase Order</b><span>Sent to supplier</span></div>
+        <div class="chain-node"><b>📝 Order Placed</b><span>Sent to supplier</span></div>
         <div class="chain-arrow">→</div>
-        <div class="chain-node"><b>Goods Received</b><span>Checked &amp; approved</span></div>
+        <div class="chain-node"><b>📦 Goods Arrive</b><span>Checked &amp; approved</span></div>
         <div class="chain-arrow">→</div>
-        <div class="chain-node"><b>Invoice</b><span>Auto-checked vs PO price</span></div>
+        <div class="chain-node"><b>🧾 Bill Comes In</b><span>Price double-checked</span></div>
         <div class="chain-arrow">→</div>
-        <div class="chain-node"><b>Payment</b><span>Allocated &amp; recorded</span></div>
+        <div class="chain-node"><b>💸 Paid</b><span>Recorded automatically</span></div>
       </div>
     </div>
   </section>
@@ -468,37 +419,37 @@
   <section id="trust">
     <div class="wrap">
       <div class="section-head">
-        <div class="section-eyebrow">Why OCC</div>
-        <h2 class="section-title">Built on a foundation that holds up</h2>
+        <div class="section-eyebrow">Why it's different</div>
+        <h2 class="section-title">Built to actually be used, not just look nice</h2>
       </div>
       <div class="trust-grid">
         <div class="trust-item">
-          <div class="icon-wrap">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <div class="icon-wrap" style="background:var(--c-blue-bg);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--c-blue)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
-          <h3>Secure by default</h3>
-          <p>Credentials hashed, never stored in plaintext, independently hosted.</p>
+          <h3>Locked down</h3>
+          <p>Passwords are never stored in plain text — this isn't a spreadsheet anyone can peek into.</p>
         </div>
         <div class="trust-item">
-          <div class="icon-wrap">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <div class="icon-wrap" style="background:var(--c-green-bg);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--c-green)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
           </div>
-          <h3>Live, not stale</h3>
-          <p>Data syncs directly from source — no manual re-entry, no copy-pasted spreadsheets.</p>
+          <h3>Always up to date</h3>
+          <p>Numbers update on their own — nobody has to remember to copy anything into a spreadsheet.</p>
         </div>
         <div class="trust-item">
-          <div class="icon-wrap">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+          <div class="icon-wrap" style="background:var(--c-purple-bg);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--c-purple)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
           </div>
-          <h3>Built to extend</h3>
-          <p>New workflows ship in days, not quarters — the codebase is made to grow with the business.</p>
+          <h3>Grows with you</h3>
+          <p>New features ship in days, not months — it's built to keep up as the business changes.</p>
         </div>
         <div class="trust-item">
-          <div class="icon-wrap">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg>
+          <div class="icon-wrap" style="background:var(--c-pink-bg);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--c-pink)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg>
           </div>
-          <h3>No lock-in</h3>
-          <p>Runs on standard, portable infrastructure — nothing proprietary holding the business hostage.</p>
+          <h3>Yours, not rented</h3>
+          <p>Runs on standard infrastructure you control — nothing proprietary holding your data hostage.</p>
         </div>
       </div>
     </div>
@@ -507,8 +458,8 @@
   <section id="contact">
     <div class="wrap">
       <div class="contact-panel">
-        <h2>Ready to see it running?</h2>
-        <p>Get in touch to walk through OCC and what it can do for your operations.</p>
+        <h2>Want to see it running?</h2>
+        <p>Get in touch and we'll walk you through OCC — no pressure, just a look at what it can do.</p>
         <a href="mailto:varinder@serirasa.com?subject=OCC%20-%20Get%20in%20touch" class="cta-btn">Email us →</a>
       </div>
     </div>
