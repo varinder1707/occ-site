@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OCC — Operations Command Centre</title>
+<meta name="description" content="One live system for Sales, Management, Production, and Procurement — built to replace spreadsheets and disconnected software with a single operational view." />
+<style>
+  :root {
+    --bg: #FAF6EF;
+    --surface: #FFFFFF;
+    --surface-2: #F3ECE0;
+    --ink: #2A2119;
+    --muted: #6E6152;
+    --faint: #A2937C;
+    --line: #E8DFD0;
+    --line-strong: #D9CCB6;
+    --accent: #C1602A;
+    --accent-ink: #7A3D1B;
+    --accent-soft: #F3DCC4;
+    --good: #3B6E52;
+    --good-soft: #DEEBE3;
+    --shadow-sm: 0 1px 2px rgba(42,33,25,0.05);
+    --shadow-lg: 0 20px 60px rgba(42,33,25,0.10);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #17130F;
+      --surface: #211A13;
+      --surface-2: #2A2117;
+      --ink: #F3EADC;
+      --muted: #B4A388;
+      --faint: #7E7161;
+      --line: #362B1F;
+      --line-strong: #473A29;
+      --accent: #E08A50;
+      --accent-ink: #F3C79B;
+      --accent-soft: #3D2A18;
+      --good: #6FB090;
+      --good-soft: #24352C;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+      --shadow-lg: 0 20px 60px rgba(0,0,0,0.45);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #17130F; --surface: #211A13; --surface-2: #2A2117; --ink: #F3EADC;
+    --muted: #B4A388; --faint: #7E7161; --line: #362B1F; --line-strong: #473A29;
+    --accent: #E08A50; --accent-ink: #F3C79B; --accent-soft: #3D2A18;
+    --good: #6FB090; --good-soft: #24352C;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.3); --shadow-lg: 0 20px 60px rgba(0,0,0,0.45);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 {
+    font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    font-weight: 600;
+    text-wrap: balance;
+    margin: 0;
+    color: var(--ink);
+  }
+  a { color: inherit; }
+  img, svg { max-width: 100%; display: block; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
+  .prose { max-width: 62ch; }
+
+  /* ── Nav ──────────────────────────────────────────────── */
+  header.nav {
+    position: sticky; top: 0; z-index: 20;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 0;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 9px;
+    font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    font-weight: 700; font-size: 19px; letter-spacing: -0.01em;
+    text-decoration: none;
+  }
+  .brand .mark {
+    width: 30px; height: 30px; border-radius: 8px;
+    background: var(--accent); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-family: -apple-system, sans-serif; font-weight: 800; font-size: 14px;
+  }
+  nav.links { display: flex; gap: 28px; }
+  nav.links a {
+    font-size: 14px; font-weight: 600; color: var(--muted); text-decoration: none;
+  }
+  nav.links a:hover { color: var(--ink); }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent); color: #fff;
+    padding: 10px 20px; border-radius: 8px;
+    font-size: 14px; font-weight: 700; text-decoration: none;
+    box-shadow: var(--shadow-sm);
+    border: none; cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .cta-btn:hover { transform: translateY(-1px); box-shadow: var(--shadow-lg); }
+  .cta-ghost {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 18px; border-radius: 8px;
+    font-size: 14px; font-weight: 700; text-decoration: none;
+    border: 1.5px solid var(--line-strong); color: var(--ink);
+  }
+
+  /* ── Hero ─────────────────────────────────────────────── */
+  .hero { padding: 100px 0 80px; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--accent-ink); background: var(--accent-soft);
+    padding: 6px 14px; border-radius: 999px; margin-bottom: 24px;
+  }
+  h1.hero-title { font-size: clamp(38px, 5.5vw, 62px); line-height: 1.05; letter-spacing: -0.02em; max-width: 16ch; }
+  .hero-sub { font-size: 19px; color: var(--muted); max-width: 54ch; margin-top: 22px; }
+  .hero-actions { display: flex; gap: 14px; margin-top: 36px; flex-wrap: wrap; }
+
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    background: var(--line); border: 1px solid var(--line); border-radius: 14px;
+    overflow: hidden; margin-top: 64px; box-shadow: var(--shadow-sm);
+  }
+  .hstat { background: var(--surface); padding: 24px 20px; }
+  .hstat b {
+    display: block; font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    font-size: 30px; color: var(--accent-ink); font-variant-numeric: tabular-nums;
+  }
+  .hstat span { font-size: 12.5px; color: var(--muted); }
+
+  /* ── Section scaffolding ──────────────────────────────── */
+  section { padding: 90px 0; }
+  section.alt { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .section-eyebrow {
+    font-size: 12.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 14px;
+  }
+  h2.section-title { font-size: clamp(28px, 3.4vw, 38px); max-width: 20ch; }
+  .section-sub { font-size: 16.5px; color: var(--muted); max-width: 58ch; margin-top: 14px; }
+  .section-head { margin-bottom: 52px; }
+
+  /* ── Problem/Solution ─────────────────────────────────── */
+  .split {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start;
+  }
+  .split .col h3 { font-size: 18px; margin-bottom: 12px; }
+  .split .col p { color: var(--muted); font-size: 15px; }
+  .old-way, .new-way {
+    border-radius: 12px; padding: 26px 24px; border: 1px solid var(--line);
+  }
+  .old-way { background: var(--surface); opacity: 0.75; }
+  .new-way { background: var(--surface); border-color: var(--accent); box-shadow: var(--shadow-sm); }
+  .way-list { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .way-list li { display: flex; gap: 10px; font-size: 14.5px; color: var(--ink); align-items: flex-start; }
+  .way-list li .ico { flex-shrink: 0; margin-top: 2px; }
+
+  /* ── Feature grid ─────────────────────────────────────── */
+  .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .feature-card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+    padding: 26px 24px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .feature-card:hover { border-color: var(--line-strong); box-shadow: var(--shadow-sm); }
+  .feature-num {
+    font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    font-size: 13px; color: var(--faint); margin-bottom: 14px;
+  }
+  .feature-card h3 { font-size: 16.5px; font-family: -apple-system, sans-serif; font-weight: 700; margin-bottom: 8px; }
+  .feature-card p { font-size: 14px; color: var(--muted); margin: 0; }
+
+  /* ── Chain diagram ────────────────────────────────────── */
+  .chain { display: flex; align-items: center; gap: 0; flex-wrap: wrap; justify-content: center; margin: 8px 0 0; }
+  .chain-node {
+    background: var(--surface); border: 1.5px solid var(--line-strong); border-radius: 12px;
+    padding: 18px 22px; text-align: center; min-width: 140px;
+  }
+  .chain-node b { display: block; font-size: 14.5px; font-family: -apple-system, sans-serif; }
+  .chain-node span { font-size: 12px; color: var(--muted); }
+  .chain-arrow { color: var(--accent); font-size: 20px; padding: 0 14px; }
+
+  /* ── Trust strip ──────────────────────────────────────── */
+  .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .trust-item { text-align: center; padding: 20px; }
+  .trust-item .icon-wrap {
+    width: 48px; height: 48px; border-radius: 12px; background: var(--good-soft); color: var(--good);
+    display: flex; align-items: center; justify-content: center; margin: 0 auto 14px;
+  }
+  .trust-item h3 { font-size: 15px; font-family: -apple-system, sans-serif; font-weight: 700; margin-bottom: 6px; }
+  .trust-item p { font-size: 13px; color: var(--muted); margin: 0; }
+
+  /* ── CTA / Contact ────────────────────────────────────── */
+  .contact-panel {
+    background: var(--ink); color: var(--bg);
+    border-radius: 20px; padding: 64px 56px; text-align: center;
+  }
+  .contact-panel h2 { color: var(--bg); font-size: clamp(26px, 3.2vw, 36px); }
+  .contact-panel p { color: color-mix(in srgb, var(--bg) 70%, transparent); font-size: 16px; max-width: 48ch; margin: 16px auto 32px; }
+  .contact-panel .cta-btn { background: var(--accent); }
+
+  footer {
+    padding: 40px 0 60px; border-top: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+  }
+  footer .brand { font-size: 15px; }
+  footer .fine { font-size: 12.5px; color: var(--faint); }
+
+  @media (max-width: 860px) {
+    nav.links { display: none; }
+    .hero { padding: 70px 0 56px; }
+    .hero-stats { grid-template-columns: repeat(2, 1fr); }
+    .split { grid-template-columns: 1fr; }
+    .feature-grid { grid-template-columns: 1fr; }
+    .trust-grid { grid-template-columns: repeat(2, 1fr); }
+    .contact-panel { padding: 44px 24px; }
+    .chain { flex-direction: column; }
+    .chain-arrow { transform: rotate(90deg); padding: 6px 0; }
+  }
+</style>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a href="#top" class="brand"><span class="mark">O</span>OCC</a>
+      <nav class="links">
+        <a href="#features">Features</a>
+        <a href="#workflow">How it works</a>
+        <a href="#trust">Why OCC</a>
+      </nav>
+      <a href="#contact" class="cta-btn">Get in touch</a>
+    </div>
+  </header>
+
+  <div id="top"></div>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-eyebrow">Operations Command Centre</div>
+      <h1 class="hero-title">Run the whole business from one screen.</h1>
+      <p class="hero-sub">OCC brings Sales, Management, Production, and Procurement into a single live system — so nothing gets tracked in someone's head, a spreadsheet, or a WhatsApp thread ever again.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="cta-btn">Get in touch →</a>
+        <a href="#workflow" class="cta-ghost">See how it works</a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hstat"><b>5</b><span>Business areas, one system</span></div>
+        <div class="hstat"><b>4</b><span>Procurement steps, fully tracked</span></div>
+        <div class="hstat"><b>&gt;5%</b><span>Price variance, flagged automatically</span></div>
+        <div class="hstat"><b>1</b><span>Place to check what's overdue</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-eyebrow">The problem</div>
+        <h2 class="section-title">Running operations shouldn't mean switching between five different places</h2>
+      </div>
+      <div class="split">
+        <div class="col old-way">
+          <h3>Without OCC</h3>
+          <ul class="way-list">
+            <li><span class="ico">✕</span>Order status lives in someone's memory, or a WhatsApp scroll-back</li>
+            <li><span class="ico">✕</span>Purchase orders, GRNs, and invoices tracked as separate, disconnected documents</li>
+            <li><span class="ico">✕</span>Price increases from suppliers get caught after the invoice is already paid</li>
+            <li><span class="ico">✕</span>Answering "what's overdue" means opening three different tools</li>
+          </ul>
+        </div>
+        <div class="col new-way">
+          <h3>With OCC</h3>
+          <ul class="way-list">
+            <li><span class="ico">✓</span>Every order's status — sales or purchase — visible at a glance</li>
+            <li><span class="ico">✓</span>PO → GRN → Invoice → Payment linked automatically, end to end</li>
+            <li><span class="ico">✓</span>Any invoice priced &gt;5% over the original PO gets flagged before approval</li>
+            <li><span class="ico">✓</span>One dashboard answers what's overdue, at-risk, or waiting on you</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-eyebrow">What's inside</div>
+        <h2 class="section-title">Six areas of the business, covered end to end</h2>
+        <p class="section-sub">Not a generic dashboard — every screen is built around a real operational question someone on the team needs answered.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-num">Sales</div>
+          <h3>Pipeline &amp; performance</h3>
+          <p>Revenue trends, deal stages, and agent performance — updated live, not reconstructed at month-end.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-num">Management</div>
+          <h3>AR &amp; order lifecycle</h3>
+          <p>Real accounts-receivable aging and a live view of every sales order from creation to delivery.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-num">Production</div>
+          <h3>Capacity &amp; gap analysis</h3>
+          <p>Explodes bills of materials against current stock to answer "can we make it, and what's short."</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-num">Procurement</div>
+          <h3>PO to payment, tracked</h3>
+          <p>Create supplier POs, receive goods, invoice, and pay — with the full document chain visible for any order.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-num">Documents</div>
+          <h3>AI-assisted PO intake</h3>
+          <p>Incoming customer purchase orders are read automatically and turned into a draft order, ready to confirm.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-num">Assistant</div>
+          <h3>Ask, don't dig</h3>
+          <p>A built-in assistant answers real business questions — top customers, at-risk orders, low stock — instantly.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt" id="workflow">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-eyebrow">How it works</div>
+        <h2 class="section-title">Every purchase, traceable from order to payment</h2>
+        <p class="section-sub">The exact chain that's usually the hardest to keep straight — OCC links it automatically.</p>
+      </div>
+      <div class="chain">
+        <div class="chain-node"><b>Purchase Order</b><span>Sent to supplier</span></div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-node"><b>Goods Received</b><span>Checked &amp; approved</span></div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-node"><b>Invoice</b><span>Auto-checked vs PO price</span></div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-node"><b>Payment</b><span>Allocated &amp; recorded</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="trust">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-eyebrow">Why OCC</div>
+        <h2 class="section-title">Built on a foundation that holds up</h2>
+      </div>
+      <div class="trust-grid">
+        <div class="trust-item">
+          <div class="icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Secure by default</h3>
+          <p>Credentials hashed, never stored in plaintext, independently hosted.</p>
+        </div>
+        <div class="trust-item">
+          <div class="icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h3>Live, not stale</h3>
+          <p>Data syncs directly from source — no manual re-entry, no copy-pasted spreadsheets.</p>
+        </div>
+        <div class="trust-item">
+          <div class="icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+          </div>
+          <h3>Built to extend</h3>
+          <p>New workflows ship in days, not quarters — the codebase is made to grow with the business.</p>
+        </div>
+        <div class="trust-item">
+          <div class="icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg>
+          </div>
+          <h3>No lock-in</h3>
+          <p>Runs on standard, portable infrastructure — nothing proprietary holding the business hostage.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-panel">
+        <h2>Ready to see it running?</h2>
+        <p>Get in touch to walk through OCC and what it can do for your operations.</p>
+        <a href="mailto:varinder@serirasa.com?subject=OCC%20-%20Get%20in%20touch" class="cta-btn">Email us →</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; width:100%;">
+      <a href="#top" class="brand"><span class="mark">O</span>OCC</a>
+      <span class="fine">Operations Command Centre</span>
+    </div>
+  </footer>
+
+</body>
+</html>
